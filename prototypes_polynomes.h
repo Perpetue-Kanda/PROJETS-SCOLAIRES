@@ -22,17 +22,17 @@ int menu();
 
 void initialisation(TPolynome *polynome);
 
-int insererDansListe(TPolynome *liste , int coef , int degre);
+int insertion(TPolynome *polynome , int coef , int degre);
 
-int additionPolynome(TPolynome *liste1 , TPolynome *liste2 , TPolynome *liste3);
+int addition(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *somme);
 
-int soustractionPolynome(TPolynome *liste1 , TPolynome *liste2 , TPolynome *liste3);
+int soustraction(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *difference);
 
-int deriveePolynome(TPolynome *listeX , TPolynome *listeY);
+int derivee(TPolynome *polynome , TPolynome *deriv);
 
-void affichage (TPolynome *liste);
+void affichage(TPolynome *polynome);
 
-void libererPolynome(TPolynome *liste);
+void liberation(TPolynome *polynome);
 
 #endif // PROTOTYPES_POLYNOMES_H_INCLUDED
 

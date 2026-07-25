@@ -16,7 +16,7 @@ int menu()
     printf("2 - INSERTION DU SECOND POLYNOME\n");
     printf("3 - ADDITION \n");
     printf("4 - SOUSTRACTION \n");
-    printf("5 - DERIVEE \n");
+    printf("5 - DERIVEES \n");
     printf("6 - AFFICHAGE\n");
     printf("7 - QUITTER\n");
     do{
@@ -37,9 +37,10 @@ void initialisation(TPolynome *polynome)
 }
 
 /*Fonction permettant l'insertion des monomes de chaque polynome*/
-int insererDansListe(TPolynome *polynome , int coef , int degre)
+int insertion(TPolynome *polynome , int coef , int degre)
 {
     if (polynome -> taille == 0){
+        //Insertion dans une liste vide
         TMonome *monome = (TMonome*)malloc(sizeof(TMonome));
         if (monome == NULL){
             return -1;
@@ -56,6 +57,7 @@ int insererDansListe(TPolynome *polynome , int coef , int degre)
     }
 
     else{
+        //Insertion à la fin de la liste
         TMonome *monome = (TMonome*)malloc(sizeof(TMonome));
         if (monome == NULL){
             return -1;
@@ -75,7 +77,7 @@ int insererDansListe(TPolynome *polynome , int coef , int degre)
 }
 
 /*Fonction permettant l'addition de deux polynomes*/
-int additionPolynome(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *somme)
+int addition(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *somme)
 {
 
     if (polynome1 -> taille == 0 || polynome2 -> taille == 0){
@@ -88,29 +90,29 @@ int additionPolynome(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *so
     while(courant1 != NULL && courant2 != NULL)
     {
         if (courant1 -> degre == courant2 -> degre){
-            insererDansListe(somme , courant1->coef + courant2->coef ,courant1->degre);
+            insertion(somme , courant1->coef + courant2->coef ,courant1->degre);
             courant1 = courant1 -> suivant;
             courant2 = courant2 -> suivant;
         }
         else if(courant1 -> degre > courant2 -> degre){
-            insererDansListe(somme , courant1 -> coef , courant1 -> degre);
+            insertion(somme , courant1 -> coef , courant1 -> degre);
             courant1 = courant1 -> suivant;
         }
         else{
-            insererDansListe(somme , courant2 -> coef , courant2 -> degre);
+            insertion(somme , courant2 -> coef , courant2 -> degre);
             courant2 = courant2 -> suivant;
         }
     }
 
     while(courant1 != NULL)
     {
-        insererDansListe(somme , courant1 -> coef , courant1 -> degre);
+        insertion(somme , courant1 -> coef , courant1 -> degre);
         courant1 = courant1 -> suivant;
     }
 
     while (courant2 != NULL)
     {
-        insererDansListe(somme , courant2 -> coef , courant2 -> degre);
+        insertion(somme , courant2 -> coef , courant2 -> degre);
         courant2 = courant2 -> suivant ;
     }
 
@@ -119,7 +121,7 @@ int additionPolynome(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *so
 } 
 
 /*Fonction permettant la soustraction de deux polynomes*/
-int soustractionPolynome(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *difference)
+int soustraction(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome *difference)
 {
     if (polynome1 -> taille == 0 || polynome2 -> taille == 0){
         return -1;
@@ -131,29 +133,29 @@ int soustractionPolynome(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome
     while(courant1 != NULL && courant2 != NULL)
     {
         if (courant1 -> degre == courant2 -> degre){
-            insererDansListe(difference , courant1->coef - courant2->coef ,courant1->degre);
+            insertion(difference , courant1->coef - courant2->coef ,courant1->degre);
             courant1 = courant1 -> suivant;
             courant2 = courant2 -> suivant;
         }
         else if(courant1 -> degre > courant2 -> degre){
-            insererDansListe(difference , courant1 -> coef , courant1 -> degre);
+            insertion(difference , courant1 -> coef , courant1 -> degre);
             courant1 = courant1 -> suivant;
         }
         else{
-            insererDansListe(difference , (courant2 -> coef)*-1 , courant2 -> degre);
+            insertion(difference , (courant2 -> coef)*-1 , courant2 -> degre);
             courant2 = courant2 -> suivant;
         }
     }
 
     while(courant1 != NULL)
     {
-        insererDansListe(difference , courant1 -> coef , courant1 -> degre);
+        insertion(difference , courant1 -> coef , courant1 -> degre);
         courant1 = courant1 -> suivant;
     }
 
     while (courant2 != NULL)
     {
-        insererDansListe(difference , (courant2 -> coef)*-1 , courant2 -> degre);
+        insertion(difference , (courant2 -> coef)*-1 , courant2 -> degre);
         courant2 = courant2 -> suivant ;
     }
 
@@ -162,7 +164,7 @@ int soustractionPolynome(TPolynome *polynome1 , TPolynome *polynome2 , TPolynome
 } 
 
 /*Fonction permettant de dériver les polynomes*/
-int deriveePolynome(TPolynome *polynome , TPolynome *derivee)
+int derivee(TPolynome *polynome , TPolynome *deriv)
 {
     if (polynome -> taille == 0){
         return -1;
@@ -172,7 +174,7 @@ int deriveePolynome(TPolynome *polynome , TPolynome *derivee)
     while(courant != NULL)
     {
         if (courant->degre > 0){
-            insererDansListe(derivee , (courant->coef * courant->degre) , courant->degre - 1);
+            insertion(deriv , (courant->coef * courant->degre) , courant->degre - 1);
         }
         courant = courant -> suivant;
     }
@@ -180,9 +182,9 @@ int deriveePolynome(TPolynome *polynome , TPolynome *derivee)
 } 
 
 /*Affichage général*/
-void affichage (TPolynome *polynome){
+void affichage(TPolynome *polynome){
     if (polynome -> taille == 0){
-        printf("La liste est vide pour le moment \n");
+        printf("Le polynome est vide pour le moment \n");
     }
 
     TMonome *courant = polynome -> debut ;
@@ -199,7 +201,7 @@ void affichage (TPolynome *polynome){
 } 
 
 /*Fonction permettant de libérer la mémoire*/
-void libererPolynome(TPolynome *polynome)
+void liberation(TPolynome *polynome)
 {
     TMonome *courant = polynome -> debut;
     while(courant != NULL){

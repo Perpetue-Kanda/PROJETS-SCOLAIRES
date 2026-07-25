@@ -31,8 +31,8 @@ int main()
         return -1;
     }
 
-    TPolynome *derivee = (TPolynome*)malloc(sizeof(TPolynome));
-    if (derivee == NULL){
+    TPolynome *deriv = (TPolynome*)malloc(sizeof(TPolynome));
+    if (deriv == NULL){
         return -1;
     }
 
@@ -40,7 +40,7 @@ int main()
     initialisation(polynome2);
     initialisation(somme);
     initialisation(difference);
-    initialisation(derivee);
+    initialisation(deriv);
 
     do{
         choix = menu();
@@ -54,14 +54,14 @@ int main()
                 }while(degreP1 < 0);
 
                 printf("Veuillez remplir dans l'ordre décroissant\n\n");
-                for (int i = 1 ; i <= degreP1 + 1 ; i++){
+                for (int i = 0 ; i <= degreP1  ; i++){
                    
-                    printf("Entrez l'élément %d : \n",i);
+                    printf("Entrez l'élément %d : \n",i+1);
                     printf("Coefficient : \n");
                     scanf("%d",&coef);
                     printf("Degré : \n");
                     scanf("%d",&deg);
-                    insererDansListe(polynome1 , coef , deg);
+                    insertion(polynome1 , coef , deg);
                 }
                 break;
             case 2:
@@ -72,19 +72,19 @@ int main()
                 }while(degreP2 < 0);
 
                 printf("Veuillez remplir dans l'ordre décroissant\n\n");
-                for (int i = 1 ; i <= degreP2 + 1 ; i++){
-                    printf("Entrez l'élément %d : \n",i);
+                for (int i = 0 ; i <= degreP2 ; i++){
+                    printf("Entrez l'élément %d : \n",i+1);
                     printf("Coefficient : \n");
                     scanf("%d",&coef);
                     printf("Degré : \n");
                     scanf("%d",&deg);
-                    insererDansListe(polynome2 , coef , deg);
+                    insertion(polynome2 , coef , deg);
                 }
                 break;
                 
             case 3:
                 printf("-----ADDITION DE POLYNOMES-----\n");
-                additionPolynome(polynome1 , polynome2 ,somme);
+                addition(polynome1 , polynome2 ,somme);
                 printf("Après addition :\n");
                 affichage(somme);
                 break;
@@ -97,12 +97,12 @@ int main()
                 printf("Polynome 2 - Polynome 1 , Tapez 1\n");
                 scanf("%d",&reponse);
                 if (reponse == 0){
-                    soustractionPolynome(polynome1 , polynome2, difference);
+                    soustraction(polynome1 , polynome2, difference);
                     printf("Après soustraction :\n");
                     affichage(difference);
                 }
                 else{
-                    soustractionPolynome(polynome1 , polynome2, difference);
+                    soustraction(polynome2 , polynome1, difference);
                     printf("Après soustraction :\n");
                     affichage(difference);
                 }
@@ -112,44 +112,44 @@ int main()
                 printf("-----DERIVEES-----\n");
 
                 printf("Dérivée du polynome 1 :\n");
-                deriveePolynome(polynome1 ,derivee);
-                affichage(derivee);
-                initialisation(derivee);
+                derivee(polynome1 ,deriv);
+                affichage(deriv);
+                initialisation(deriv);
 
                 printf("Dérivée du polynome 2 :\n");
-                deriveePolynome(polynome2 , derivee);
-                affichage(derivee);
-                initialisation(derivee);
+                derivee(polynome2 , deriv);
+                affichage(deriv);
+                initialisation(deriv);
 
                 printf("Dérivée de la somme :\n");
-                deriveePolynome(somme , derivee);
-                affichage(derivee);
-                initialisation(derivee);
+                derivee(somme , deriv);
+                affichage(deriv);
+                initialisation(deriv);
 
                 printf("Dérivée de la différence :\n");
-                deriveePolynome(difference , derivee);
-                affichage(derivee);
+                derivee(difference , deriv);
+                affichage(deriv);
                 break;
 
             case 6:
                 printf("-----AFFICHAGE-----\n\n");
 
-                printf("Polynome 1 :\n");
+                printf("POLYNOME 1 :\n");
                 affichage(polynome1 );
-                printf("Polynome 2 :\n");
+                printf("POLYNOME 2 :\n");
                 affichage(polynome2 );
-                printf("Somme :\n");
+                printf("SOMME :\n");
                 affichage(somme);
-                printf("Différence :\n");
+                printf("DIFFERENCE :\n");
                 affichage(difference);
                 break;
 
             case 7:
-                libererPolynome(polynome1);
-                libererPolynome(polynome2);
-                libererPolynome(somme);
-                libererPolynome(difference);
-                libererPolynome(derivee);
+                liberation(polynome1);
+                liberation(polynome2);
+                liberation(somme);
+                liberation(difference);
+                liberation(deriv);
 
                 printf("Au revoir !\n");
                 break;
